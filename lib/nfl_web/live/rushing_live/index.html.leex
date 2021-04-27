@@ -1,0 +1,63 @@
+<h1>Listing Rushings</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, NflWeb.RushingLive.FormComponent,
+    id: @rushing.id || :new,
+    title: @page_title,
+    action: @live_action,
+    rushing: @rushing,
+    return_to: Routes.rushing_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>1st</th>
+      <th>1st%</th>
+      <th>20+</th>
+      <th>40+</th>
+      <th>Att</th>
+      <th>Att/g</th>
+      <th>Fum</th>
+      <th>Lng</th>
+      <th>Player</th>
+      <th>Pos</th>
+      <th>Td</th>
+      <th>Team</th>
+      <th>Yds</th>
+      <th>Yds/g</th>
+      <th>Avg</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="rushings">
+    <%= for rushing <- @rushings do %>
+      <tr id="rushing-<%= rushing.id %>">
+        <td><%= rushing["1st"] %></td>
+        <td><%= rushing["1st%"] %></td>
+        <td><%= rushing["20+"] %></td>
+        <td><%= rushing["40+"] %></td>
+        <td><%= rushing["Att"] %></td>
+        <td><%= rushing["Att/G"] %></td>
+        <td><%= rushing["FUM"] %></td>
+        <td><%= rushing["Lng"] %></td>
+        <td><%= rushing["Player"] %></td>
+        <td><%= rushing["Pos"] %></td>
+        <td><%= rushing["TD"] %></td>
+        <td><%= rushing["Team"] %></td>
+        <td><%= rushing["Yds"] %></td>
+        <td><%= rushing["Yds/G"] %></td>
+        <td><%= rushing["Avg"] %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.rushing_show_path(@socket, :show, rushing) %></span>
+          <span><%= live_patch "Edit", to: Routes.rushing_index_path(@socket, :edit, rushing) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: rushing.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Rushing", to: Routes.rushing_index_path(@socket, :new) %></span>

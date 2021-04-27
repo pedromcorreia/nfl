@@ -1,0 +1,70 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "rushing-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :"1st" %>
+  <%= number_input f, :"1st" %>
+  <%= error_tag f, :"1st" %>
+
+  <%= label f, :"1st%" %>
+  <%= number_input f, :"1st%", step: "any" %>
+  <%= error_tag f, :"1st%" %>
+
+  <%= label f, :"20+" %>
+  <%= number_input f, :"20+" %>
+  <%= error_tag f, :"20+" %>
+
+  <%= label f, :"40+" %>
+  <%= number_input f, :"40+" %>
+  <%= error_tag f, :"40+" %>
+
+  <%= label f, :Att %>
+  <%= number_input f, :Att %>
+  <%= error_tag f, :Att %>
+
+  <%= label f, :"Att/G" %>
+  <%= number_input f, :"Att/G", step: "any" %>
+  <%= error_tag f, :"Att/G" %>
+
+  <%= label f, :FUM %>
+  <%= number_input f, :FUM %>
+  <%= error_tag f, :FUM %>
+
+  <%= label f, :Lng %>
+  <%= text_input f, :Lng %>
+  <%= error_tag f, :Lng %>
+
+  <%= label f, :Player %>
+  <%= text_input f, :Player %>
+  <%= error_tag f, :Player %>
+
+  <%= label f, :Pos %>
+  <%= text_input f, :Pos %>
+  <%= error_tag f, :Pos %>
+
+  <%= label f, :TD %>
+  <%= number_input f, :TD %>
+  <%= error_tag f, :TD %>
+
+  <%= label f, :Team %>
+  <%= text_input f, :Team %>
+  <%= error_tag f, :Team %>
+
+  <%= label f, :Yds %>
+  <%= number_input f, :Yds %>
+  <%= error_tag f, :Yds %>
+
+  <%= label f, :"Yds/G" %>
+  <%= number_input f, :"Yds/G", step: "any" %>
+  <%= error_tag f, :"Yds/G" %>
+
+  <%= label f, :Avg %>
+  <%= number_input f, :Avg, step: "any" %>
+  <%= error_tag f, :Avg %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>
