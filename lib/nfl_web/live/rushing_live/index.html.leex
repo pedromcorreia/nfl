@@ -11,6 +11,7 @@
 
 <table>
   <thead>
+        <%= @sort_order %>
     <tr>
       <th>1st</th>
       <th>1st%</th>
@@ -19,12 +20,21 @@
       <th>Att</th>
       <th>Att/g</th>
       <th>Fum</th>
-      <th>Lng</th>
+      <th>
+        <%= live_patch "Lng", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Lng", sort_order: @sort_order}) %>
+        <%= sort_order_icon("Lng", @sort_by, @sort_order) %>
+      </th>
       <th>Player</th>
       <th>Pos</th>
-      <th>Td</th>
+      <th>
+        <%= live_patch "TD", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "TD", sort_order: @sort_order}) %>
+        <%= sort_order_icon("TD", @sort_by, @sort_order) %>
+      </th>
       <th>Team</th>
-      <th>Yds</th>
+      <th>
+        <%= live_patch "Yds", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Yds", sort_order: @sort_order}) %>
+        <%= sort_order_icon("Yds", @sort_by, @sort_order) %>
+      </th>
       <th>Yds/g</th>
       <th>Avg</th>
 
