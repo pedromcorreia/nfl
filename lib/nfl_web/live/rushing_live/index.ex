@@ -13,8 +13,8 @@ defmodule NflWeb.RushingLive.Index do
   @impl true
   def handle_params(%{"sort_by" => key, "sort_order" => order} = params, _url, socket)
       when key in @allow_params and order in ~w(desc asc) do
-    {:noreply,
-     apply_action(socket, socket.assigns.live_action, params, Statistics.sort(key, order))}
+    rushings = rushings_list(socket, params)
+    {:noreply, apply_action(socket, socket.assigns.live_action, params, rushings)}
   end
 
   @impl true
@@ -22,11 +22,18 @@ defmodule NflWeb.RushingLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
+  @impl true
+  def handle_event("search", %{"query" => _query} = params, socket) do
+    {:noreply,
+     apply_action(socket, socket.assigns.live_action, params, rushings_list(socket, params))}
+  end
+
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Rushings")
     |> assign(:rushing, nil)
-    |> assign(:sort_by, nil)
+    |> assign(:sort_by, "TD")
+    |> assign(:query, "")
     |> assign(:sort_order, :desc)
   end
 
@@ -34,9 +41,19 @@ defmodule NflWeb.RushingLive.Index do
     socket
     |> assign(:page_title, "Listing Rushings")
     |> assign(:rushing, nil)
-    |> assign(:sort_by, params["sort_by"])
-    |> assign(:sort_order, sort_order(params["sort_order"]))
+    |> assign(:query, params["query"] || socket.assigns[:query])
+    |> assign(:sort_order, sort_order(params["sort_order"]) || socket.assigns[:sort_order])
+    |> assign(:sort_by, params["sort_by"] || socket.assigns[:sort_by])
     |> assign(:rushings, rushings)
+  end
+
+  defp rushings_list(socket, %{"query" => _} = params) do
+    Statistics.list_rushings_by_params(params)
+  end
+
+  defp rushings_list(socket, params) do
+    params = Map.put(params, "query", socket.assigns[:query])
+    Statistics.list_rushings_by_params(params)
   end
 
   defp sort_order_icon(column, sort_by, :asc) when column == sort_by, do: "▲"
@@ -45,4 +62,5 @@ defmodule NflWeb.RushingLive.Index do
 
   defp sort_order("asc"), do: :desc
   defp sort_order("desc"), do: :asc
+  defp sort_order(_), do: :desc
 end

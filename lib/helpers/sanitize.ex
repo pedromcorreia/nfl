@@ -5,6 +5,9 @@ defmodule Helpers.Sanitize do
     |> Enum.into(%{})
   end
 
+  def to_atom(params) when is_atom(params), do: params
+  def to_atom(params), do: String.to_atom(params)
+
   defp sanitize_attrs({key, value} = param) when key in ~w(Lng) and not is_bitstring(value) do
     {key, "#{value}"}
   end

@@ -9,9 +9,10 @@
     return_to: Routes.rushing_index_path(@socket, :index) %>
 <% end %>
 
+<form phx-change="search"><input type="text" name="query" value="<%= @query %>" placeholder="Search..." /></form>
+
 <table>
   <thead>
-        <%= @sort_order %>
     <tr>
       <th>1st</th>
       <th>1st%</th>

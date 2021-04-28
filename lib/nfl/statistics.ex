@@ -7,6 +7,7 @@ defmodule Nfl.Statistics do
   alias Nfl.Repo
 
   alias Nfl.Statistics.Rushing
+  alias Helpers.Sanitize
 
   @doc """
   Returns the list of rushings.
@@ -21,12 +22,28 @@ defmodule Nfl.Statistics do
     Repo.all(Rushing)
   end
 
-  def sort(field, order) when order in ~w(desc asc) do
-    field = String.to_atom(field)
-    order = String.to_atom(order)
+  def sort(query, %{"sort_by" => field, "sort_order" => order})
+      when order in ["desc", "asc", :desc, :asc] and not is_nil(field) do
+    field = Sanitize.to_atom(field)
+    order = Sanitize.to_atom(order)
 
-    (s in from(r in Rushing))
+    (s in query)
     |> from(order_by: {^order, field(s, ^field)})
+  end
+
+  def sort(query, _), do: query
+
+  def filter_name(query, %{"query" => value}) when value != "" do
+    (s in query)
+    |> from(where: ilike(s."Player", ^"%#{value}%"))
+  end
+
+  def filter_name(query, _), do: query
+
+  def list_rushings_by_params(params) do
+    from(r in Rushing)
+    |> filter_name(params)
+    |> sort(params)
     |> Repo.all()
   end
 
