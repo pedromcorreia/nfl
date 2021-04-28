@@ -1,6 +1,6 @@
 <h1>Players statistics</h1>
 
-<form phx-change="search"><input type="text" name="query" value="<%= @query %>" placeholder="Search..." /></form>
+<form phx-change="search" id="phx_search"><input type="text" name="query" value="<%= @query %>" placeholder="Search..." /></form>
 
  <%= link to: Routes.export_path(NflWeb.Endpoint, :index, query: @query, sort_order: @sort_order, sort_by: @sort_by), class: "button is-info" do %>
    Download
@@ -17,18 +17,18 @@
       <th>Att/g</th>
       <th>Fum</th>
       <th>
-        <%= live_patch "Lng", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Lng", sort_order: @sort_order}) %>
+        <%= live_patch "Lng", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Lng", sort_order: @sort_order}), id: "phx_order_lng" %>
         <%= sort_order_icon("Lng", @sort_by, @sort_order) %>
       </th>
       <th>Player</th>
       <th>Pos</th>
       <th>
-        <%= live_patch "TD", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "TD", sort_order: @sort_order}) %>
+        <%= live_patch "TD", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "TD", sort_order: @sort_order}), id: "phx_order_td" %>
         <%= sort_order_icon("TD", @sort_by, @sort_order) %>
       </th>
       <th>Team</th>
       <th>
-        <%= live_patch "Yds", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Yds", sort_order: @sort_order}) %>
+        <%= live_patch "Yds", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Yds", sort_order: @sort_order}), id: "phx_order_yds" %>
         <%= sort_order_icon("Yds", @sort_by, @sort_order) %>
       </th>
       <th>Yds/g</th>
@@ -59,5 +59,3 @@
     <% end %>
   </tbody>
 </table>
-
-<span><%= live_patch "New Rushing", to: Routes.rushing_index_path(@socket, :new) %></span>

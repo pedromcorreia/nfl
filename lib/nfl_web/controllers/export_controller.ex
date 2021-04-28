@@ -7,8 +7,9 @@ defmodule NflWeb.ExportController do
 
   def index(conn, %{"query" => _, "sort_by" => _, "sort_order" => _} = params) do
     exports =
-      Statistics.list_rushings_by_params(params)
-      |> Exporter.data_to_csv()
+      params
+      |> Statistics.list_rushings_by_params()
+      |> Exporter.encode_data()
 
     conn
     |> put_resp_content_type("text/csv")

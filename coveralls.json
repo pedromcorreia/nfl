@@ -2,6 +2,7 @@
   "skip_files": [
     "/opt",
     "lib/nfl.ex",
+    "test/",
     "lib/nfl/application.ex",
     "lib/nfl/repo.ex",
     "lib/nfl_web.ex",
