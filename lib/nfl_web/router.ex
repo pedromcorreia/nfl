@@ -17,13 +17,13 @@ defmodule NflWeb.Router do
   scope "/", NflWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
-    live "/rushings", RushingLive.Index, :index
+    live "/", RushingLive.Index, :index
     live "/rushings/new", RushingLive.Index, :new
     live "/rushings/:id/edit", RushingLive.Index, :edit
 
     live "/rushings/:id", RushingLive.Show, :show
     live "/rushings/:id/show/edit", RushingLive.Show, :edit
+    resources "/exports", ExportController
   end
 
   # Other scopes may use custom stacks.

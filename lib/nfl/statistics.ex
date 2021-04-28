@@ -7,7 +7,7 @@ defmodule Nfl.Statistics do
   alias Nfl.Repo
 
   alias Nfl.Statistics.Rushing
-  alias Helpers.Sanitize
+  alias Nfl.Helpers.Sanitize
 
   @doc """
   Returns the list of rushings.

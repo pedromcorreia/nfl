@@ -1,15 +1,10 @@
-<h1>Listing Rushings</h1>
-
-<%= if @live_action in [:new, :edit] do %>
-  <%= live_modal @socket, NflWeb.RushingLive.FormComponent,
-    id: @rushing.id || :new,
-    title: @page_title,
-    action: @live_action,
-    rushing: @rushing,
-    return_to: Routes.rushing_index_path(@socket, :index) %>
-<% end %>
+<h1>Players statistics</h1>
 
 <form phx-change="search"><input type="text" name="query" value="<%= @query %>" placeholder="Search..." /></form>
+
+ <%= link to: Routes.export_path(NflWeb.Endpoint, :index, query: @query, sort_order: @sort_order, sort_by: @sort_by), class: "button is-info" do %>
+   Download
+    <% end %>
 
 <table>
   <thead>
@@ -60,12 +55,6 @@
         <td><%= rushing."Yds" %></td>
         <td><%= rushing."Yds/G" %></td>
         <td><%= rushing."Avg" %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.rushing_show_path(@socket, :show, rushing) %></span>
-          <span><%= live_patch "Edit", to: Routes.rushing_index_path(@socket, :edit, rushing) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: rushing.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
       </tr>
     <% end %>
   </tbody>
