@@ -14,7 +14,7 @@ defmodule Nfl.Helpers.Sanitize do
 
   defp sanitize_attrs({key, value} = param) when key in ~w(1st% Att/G Avg Yds/G Yds) do
     with true <- is_bitstring(value),
-         String.contains?(value, ",") do
+         true <- String.contains?(value, ",") do
       value = String.replace(value, ",", "") |> String.to_integer()
 
       {key, value}

@@ -7,7 +7,6 @@ defmodule Nfl.StatisticsTest do
   describe "rushings" do
     test "list_rushings_by_params/0 returns empty list without records" do
       assert Statistics.list_rushings_by_params() == []
-      assert length(Statistics.list_rushings_by_params()) == 0
     end
 
     test "list_rushings_by_params/0 returns all rushings without params" do
