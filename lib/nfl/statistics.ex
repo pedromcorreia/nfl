@@ -10,53 +10,43 @@ defmodule Nfl.Statistics do
   alias Nfl.Helpers.Sanitize
 
   @doc """
-  Returns the list of rushings.
+  Returns the list of rushings by params
+
+  Params are optional, permitted params:
+
+  ["sort_by", "sort_order", "query"]
 
   ## Examples
 
-      iex> list_rushings()
+      iex> list_rushings_by_params()
       [%Rushing{}, ...]
 
+      iex> list_rushings_by_params(%{"sort_by" => "TD", "sort_order" => "desc"})
+      [%Rushing{}, ...]
+
+      iex> list_rushings_by_params(%{"query" => "Alfred Blue"})
+      [%Rushing{}, ...]
   """
-  def list_rushings do
-    Repo.all(Rushing)
-  end
-
-  def sort(query, %{"sort_by" => field, "sort_order" => order})
-      when order in ["desc", "asc", :desc, :asc] and not is_nil(field) do
-    field = Sanitize.to_atom(field)
-    order = Sanitize.to_atom(order)
-
-    (s in query)
-    |> from(order_by: {^order, field(s, ^field)})
-  end
-
-  def sort(query, _), do: query
-
-  def filter_name(query, %{"query" => value}) when value != "" do
-    (s in query)
-    |> from(where: ilike(s."Player", ^"%#{value}%"))
-  end
-
-  def filter_name(query, _), do: query
-
-  def list_rushings_by_params(params) do
+  def list_rushings_by_params(params \\ %{}) do
     from(r in Rushing)
     |> filter_name(params)
     |> sort(params)
     |> Repo.all()
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking rushing changes.
+  defp sort(query, %{"sort_by" => field, "sort_order" => order})
+       when order in ["desc", "asc", :desc, :asc] and not is_nil(field) do
+    field = Sanitize.to_atom(field)
+    order = Sanitize.to_atom(order)
 
-  ## Examples
-
-      iex> change_rushing(rushing)
-      %Ecto.Changeset{data: %Rushing{}}
-
-  """
-  def change_rushing(%Rushing{} = rushing, attrs \\ %{}) do
-    Rushing.changeset(rushing, attrs)
+    from(s in query, order_by: {^order, field(s, ^field)})
   end
+
+  defp sort(query, _), do: query
+
+  defp filter_name(query, %{"query" => value}) when value != "" do
+    from(s in query, where: ilike(s."Player", ^"%#{value}%"))
+  end
+
+  defp filter_name(query, _), do: query
 end

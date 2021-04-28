@@ -7,14 +7,14 @@ defmodule NflWeb.RushingLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :rushings, Statistics.list_rushings())}
+    {:ok, assign(socket, :rushings, rushings_list(socket))}
   end
 
   @impl true
   def handle_params(%{"sort_by" => key, "sort_order" => order} = params, _url, socket)
       when key in @allow_params and order in ~w(desc asc) do
-    rushings = rushings_list(socket, params)
-    {:noreply, apply_action(socket, socket.assigns.live_action, params, rushings)}
+    {:noreply,
+     apply_action(socket, socket.assigns.live_action, params, rushings_list(socket, params))}
   end
 
   @impl true
@@ -47,11 +47,11 @@ defmodule NflWeb.RushingLive.Index do
     |> assign(:rushings, rushings)
   end
 
-  defp rushings_list(socket, %{"query" => _} = params) do
+  defp rushings_list(_socket, %{"query" => _} = params) do
     Statistics.list_rushings_by_params(params)
   end
 
-  defp rushings_list(socket, params) do
+  defp rushings_list(socket, params \\ %{}) do
     params = Map.put(params, "query", socket.assigns[:query])
     Statistics.list_rushings_by_params(params)
   end

@@ -9,7 +9,7 @@ defmodule Nfl.Helpers.Sanitize do
   def to_atom(params), do: String.to_atom(params)
 
   defp sanitize_attrs({key, value} = param) when key in ~w(Lng) and not is_bitstring(value) do
-    {key, "#{value}"}
+    {key, to_string(value)}
   end
 
   defp sanitize_attrs({key, value} = param) when key in ~w(1st% Att/G Avg Yds/G Yds) do

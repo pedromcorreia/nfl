@@ -22,10 +22,12 @@ defmodule Nfl.Statistics.Rushing do
     timestamps()
   end
 
+  @fields ~w(1st 1st% 20+ 40+ Att Att/G Avg FUM Lng Player Pos TD Team Yds Yds/G)a
+
   @doc false
   def changeset(rushing, attrs) do
     rushing
-    |> cast(attrs, [:"1st", :"1st%", :"20+", :"40+", :Att, :"Att/G", :FUM, :Lng, :Player, :Pos, :TD, :Team, :Yds, :"Yds/G", :Avg])
-    |> validate_required([:"1st", :"1st%", :"20+", :"40+", :Att, :"Att/G", :FUM, :Lng, :Player, :Pos, :TD, :Team, :Yds, :"Yds/G", :Avg])
+    |> cast(attrs, @fields)
+    |> validate_required(@fields)
   end
 end
