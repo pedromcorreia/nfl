@@ -12,7 +12,7 @@ defmodule NflWeb.ExportController do
 
     conn
     |> put_resp_content_type("text/csv")
-    |> put_resp_header("content-disposition", "attachment; filename=\"contacts.csv\"")
+    |> put_resp_header("content-disposition", "attachment; filename=\"statistics.csv\"")
     |> send_resp(200, exports)
   end
 end

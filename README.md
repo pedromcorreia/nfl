@@ -65,7 +65,14 @@ docker-compose build
 docker-compose run --rm web mix ecto.setup
 ```
 > this command will create, migrate and populate the database
-4. Then open
+
+4. Run your project with
+
+``` sh
+docker-compose up -d
+```
+
+5. Then open
 ``` sh
 open http://localhost:4000
 ```

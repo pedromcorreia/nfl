@@ -30,8 +30,6 @@ defmodule NflWeb.RushingLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Rushings")
-    |> assign(:rushing, nil)
     |> assign(:sort_by, "TD")
     |> assign(:query, "")
     |> assign(:sort_order, :desc)
@@ -39,8 +37,6 @@ defmodule NflWeb.RushingLive.Index do
 
   defp apply_action(socket, :index, params, rushings) do
     socket
-    |> assign(:page_title, "Listing Rushings")
-    |> assign(:rushing, nil)
     |> assign(:query, params["query"] || socket.assigns[:query])
     |> assign(:sort_order, sort_order(params["sort_order"]) || socket.assigns[:sort_order])
     |> assign(:sort_by, params["sort_by"] || socket.assigns[:sort_by])

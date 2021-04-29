@@ -2,7 +2,7 @@
   "skip_files": [
     "/opt",
     "lib/nfl.ex",
-    "test/",
+    "test",
     "lib/nfl/application.ex",
     "lib/nfl/repo.ex",
     "lib/nfl_web.ex",
@@ -12,10 +12,7 @@
     "lib/nfl_web/live/live_helpers.ex",
     "lib/nfl_web/live/modal_component.ex",
     "lib/nfl_web/live/page_live.ex",
-    "lib/nfl_web/live/rushing_live/form_component.ex",
-    "lib/nfl_web/live/rushing_live/show.ex",
     "lib/nfl_web/views/error_helpers.ex",
-    "lib/nfl_web/views/layout_view.ex",
-    "test/support/channel_case.ex"
+    "lib/nfl_web/views/layout_view.ex"
   ]
 }

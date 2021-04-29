@@ -67,7 +67,7 @@ defmodule Nfl.Helpers.Sanitize do
       :Player
 
   """
-  @spec to_atom(atom() | string()) :: atom()
+  @spec to_atom(atom() | String.t()) :: atom()
   def to_atom(params) when is_atom(params), do: params
   def to_atom(params), do: String.to_atom(params)
 
