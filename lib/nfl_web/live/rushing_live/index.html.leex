@@ -2,60 +2,63 @@
 
 <form phx-change="search" id="phx_search"><input type="text" name="query" value="<%= @query %>" placeholder="Search..." /></form>
 
- <%= link to: Routes.export_path(NflWeb.Endpoint, :index, query: @query, sort_order: @sort_order, sort_by: @sort_by), class: "button is-info" do %>
-   Download
-    <% end %>
+<%= link to: Routes.export_path(NflWeb.Endpoint, :index, query: @query, sort_order: @sort_order, sort_by: @sort_by), class: "button is-info" do %>
+  Download
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>1st</th>
-      <th>1st%</th>
-      <th>20+</th>
-      <th>40+</th>
-      <th>Att</th>
-      <th>Att/g</th>
-      <th>Fum</th>
-      <th>
-        <%= live_patch "Lng", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Lng", sort_order: @sort_order}), id: "phx_order_lng" %>
-        <%= sort_order_icon("Lng", @sort_by, @sort_order) %>
-      </th>
-      <th>Player</th>
-      <th>Pos</th>
-      <th>
-        <%= live_patch "TD", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "TD", sort_order: @sort_order}), id: "phx_order_td" %>
-        <%= sort_order_icon("TD", @sort_by, @sort_order) %>
-      </th>
-      <th>Team</th>
-      <th>
-        <%= live_patch "Yds", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Yds", sort_order: @sort_order}), id: "phx_order_yds" %>
-        <%= sort_order_icon("Yds", @sort_by, @sort_order) %>
-      </th>
-      <th>Yds/g</th>
-      <th>Avg</th>
+<div class="table-responsive">
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="rushings">
-    <%= for rushing <- @rushings do %>
-      <tr id="rushing-<%= rushing.id %>">
-        <td><%= rushing."1st" %></td>
-        <td><%= rushing."1st%" %></td>
-        <td><%= rushing."20+" %></td>
-        <td><%= rushing."40+" %></td>
-        <td><%= rushing."Att" %></td>
-        <td><%= rushing."Att/G" %></td>
-        <td><%= rushing."FUM" %></td>
-        <td><%= rushing."Lng" %></td>
-        <td><%= rushing."Player" %></td>
-        <td><%= rushing."Pos" %></td>
-        <td><%= rushing."TD" %></td>
-        <td><%= rushing."Team" %></td>
-        <td><%= rushing."Yds" %></td>
-        <td><%= rushing."Yds/G" %></td>
-        <td><%= rushing."Avg" %></td>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>1st</th>
+        <th>1st%</th>
+        <th>20+</th>
+        <th>40+</th>
+        <th>Att</th>
+        <th>Att/g</th>
+        <th>Fum</th>
+        <th>
+          <%= live_patch "Lng", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Lng", sort_order: @sort_order}), id: "phx_order_lng" %>
+          <%= sort_order_icon("Lng", @sort_by, @sort_order) %>
+        </th>
+        <th>Player</th>
+        <th>Pos</th>
+        <th>
+          <%= live_patch "TD", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "TD", sort_order: @sort_order}), id: "phx_order_td" %>
+          <%= sort_order_icon("TD", @sort_by, @sort_order) %>
+        </th>
+        <th>Team</th>
+        <th>
+          <%= live_patch "Yds", to: Routes.rushing_index_path(@socket, :index, %{sort_by: "Yds", sort_order: @sort_order}), id: "phx_order_yds" %>
+          <%= sort_order_icon("Yds", @sort_by, @sort_order) %>
+        </th>
+        <th>Yds/g</th>
+        <th>Avg</th>
+
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody id="rushings">
+      <%= for rushing <- @rushings do %>
+        <tr id="rushing-<%= rushing.id %>">
+          <td><%= rushing."1st" %></td>
+          <td><%= rushing."1st%" %></td>
+          <td><%= rushing."20+" %></td>
+          <td><%= rushing."40+" %></td>
+          <td><%= rushing."Att" %></td>
+          <td><%= rushing."Att/G" %></td>
+          <td><%= rushing."FUM" %></td>
+          <td><%= rushing."Lng" %></td>
+          <td><%= rushing."Player" %></td>
+          <td><%= rushing."Pos" %></td>
+          <td><%= rushing."TD" %></td>
+          <td><%= rushing."Team" %></td>
+          <td><%= rushing."Yds" %></td>
+          <td><%= rushing."Yds/G" %></td>
+          <td><%= rushing."Avg" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
