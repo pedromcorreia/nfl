@@ -56,8 +56,16 @@ If you have any questions regarding requirements, do not hesitate to email your 
 ### Installation and running this solution
 
 1. Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/)
-
-2. Create your database and seed the database:
+2. Build your docker compose file:
+``` sh
+docker-compose build
 ```
+3. Create your database and seed the database:
+``` sh
 docker-compose run --rm web mix ecto.setup
+```
+>> this command will create, migrate and populate the database
+4. Then open
+``` sh
+open http://localhost:4000
 ```
