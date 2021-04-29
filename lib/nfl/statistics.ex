@@ -10,11 +10,15 @@ defmodule Nfl.Statistics do
   alias Nfl.Helpers.Sanitize
 
   @doc """
-  Returns the list of rushings by params
+  Returns a list of rushings for given params.
 
-  Params are optional, permitted params:
+  Returns `[%Rushing{}, ...]`.
 
-  ["sort_by", "sort_order", "query"]
+  ## Parameters
+
+    - sort_by: Sort column.
+    - sort_order: Sort order, must be desc or asc.
+    - query: Player filter name.
 
   ## Examples
 
@@ -27,6 +31,7 @@ defmodule Nfl.Statistics do
       iex> list_rushings_by_params(%{"query" => "Alfred Blue"})
       [%Rushing{}, ...]
   """
+  @spec list_rushings_by_params(map()) :: list(%Rushing{})
   def list_rushings_by_params(params \\ %{}) do
     from(r in Rushing)
     |> filter_name(params)
@@ -50,3 +55,4 @@ defmodule Nfl.Statistics do
 
   defp filter_name(query, _), do: query
 end
+

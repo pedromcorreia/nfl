@@ -5,11 +5,11 @@ defmodule Nfl.StatisticsTest do
   alias Nfl.Statistics
 
   describe "rushings" do
-    test "list_rushings_by_params/0 returns empty list without records" do
+    test "list_rushings_by_params/1 returns empty list without records" do
       assert Statistics.list_rushings_by_params() == []
     end
 
-    test "list_rushings_by_params/0 returns all rushings without params" do
+    test "list_rushings_by_params/1 returns all rushings without params" do
       rushing = insert_list(3, :rushing)
 
       assert Statistics.list_rushings_by_params() == rushing

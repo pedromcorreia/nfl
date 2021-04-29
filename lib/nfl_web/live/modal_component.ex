@@ -1,4 +1,5 @@
 defmodule NflWeb.ModalComponent do
+  @moduledoc false
   use NflWeb, :live_component
 
   @impl true

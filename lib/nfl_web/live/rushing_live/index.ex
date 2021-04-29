@@ -1,4 +1,5 @@
 defmodule NflWeb.RushingLive.Index do
+  @moduledoc false
   use NflWeb, :live_view
 
   alias Nfl.Statistics

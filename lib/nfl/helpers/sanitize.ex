@@ -1,10 +1,73 @@
 defmodule Nfl.Helpers.Sanitize do
+  @moduledoc """
+  The module sanitize to help removing or converting data
+  into other data type.
+  """
+
+  @doc """
+  Returns a map for given map, removing and converting some data, as:
+  string in integer.
+
+  Returns `%{}`.
+
+  ## Examples
+
+      iex> sanitize(%{"1st" => 2,
+                      "1st%" => 33.3,
+                      "20+" => 1,
+                      "40+" => 0,
+                      "Att" => 6,
+                      "Att/G" => 0.4,
+                      "Avg" => 7.2,
+                      "FUM" => 1,
+                      "Lng" => "29",
+                      "Player" => "Johnny Holton",
+                      "Pos" => "WR",
+                      "TD" => 0,
+                      "Team" => "OAK",
+                      "Yds" => "1,143",
+                      "Yds/G" => 2.9})
+      %{
+        "1st" => 2,
+        "1st%" => 33.3,
+        "20+" => 1,
+        "40+" => 0,
+        "Att" => 6,
+        "Att/G" => 0.4,
+        "Avg" => 7.2,
+        "FUM" => 1,
+        "Lng" => "29",
+        "Player" => "Johnny Holton",
+        "Pos" => "WR",
+        "TD" => 0,
+        "Team" => "OAK",
+        "Yds" => 1143,
+        "Yds/G" => 2.9
+      }
+
+  """
+  @spec sanitize(map()) :: map()
   def sanitize(params) when is_map(params) do
     params
     |> Enum.map(&sanitize_attrs/1)
     |> Enum.into(%{})
   end
 
+  @doc """
+  Returns a atom, for given params:
+
+  Returns `atom`.
+
+  ## Examples
+
+      iex> to_atom(:Player)
+      :Player
+
+      iex> to_atom("Player")
+      :Player
+
+  """
+  @spec to_atom(atom() | string()) :: atom()
   def to_atom(params) when is_atom(params), do: params
   def to_atom(params), do: String.to_atom(params)
 
