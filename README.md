@@ -64,8 +64,9 @@ docker-compose build
 ``` sh
 docker-compose run --rm web mix ecto.setup
 ```
->> this command will create, migrate and populate the database
+> this command will create, migrate and populate the database
 4. Then open
 ``` sh
 open http://localhost:4000
 ```
+You can access https://lit-river-14767.herokuapp.com/

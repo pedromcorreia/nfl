@@ -2,7 +2,6 @@ defmodule NflWeb.RushingLive.Index do
   use NflWeb, :live_view
 
   alias Nfl.Statistics
-  alias Nfl.Statistics.Rushing
   @allow_params ~w(Lng TD Yds)
 
   @impl true
@@ -47,18 +46,20 @@ defmodule NflWeb.RushingLive.Index do
     |> assign(:rushings, rushings)
   end
 
+  defp rushings_list(socket, params \\ %{})
+
   defp rushings_list(_socket, %{"query" => _} = params) do
     Statistics.list_rushings_by_params(params)
   end
 
-  defp rushings_list(socket, params \\ %{}) do
+  defp rushings_list(socket, params) do
     params = Map.put(params, "query", socket.assigns[:query])
     Statistics.list_rushings_by_params(params)
   end
 
   defp sort_order_icon(column, sort_by, :asc) when column == sort_by, do: "▲"
   defp sort_order_icon(column, sort_by, :desc) when column == sort_by, do: "▼"
-  defp sort_order_icon(column, _, _), do: ""
+  defp sort_order_icon(_column, _, _), do: ""
 
   defp sort_order("asc"), do: :desc
   defp sort_order("desc"), do: :asc
